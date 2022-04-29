@@ -1,0 +1,100 @@
+﻿@model NewBandVM
+@using CharityEvents.Data;
+@{
+    ViewData["Title"] = "Editează o trupă";
+}
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Editează o trupă</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"> </label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConcertDate" class="control-label"> </label>
+                                <input asp-for="ConcertDate" type="date" class="form-control" />
+                                <span asp-validation-for="ConcertDate" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DonationPrice" class="control-label"> </label>
+                                <input asp-for="DonationPrice" type="number" class="form-control" />
+                                <span asp-validation-for="DonationPrice" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BandMembers" class="control-label"> </label>
+                                <textarea asp-for="BandMembers" class="form-control"></textarea>
+                                <span asp-validation-for="BandMembers" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                        </div>@*left*@
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Logo" class="control-label"> </label>
+                                <input asp-for="Logo" class="form-control" />
+                                <span asp-validation-for="Logo" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BandCategory" class="control-label"> </label>
+                                <select asp-for="BandCategory" class="form-control" asp-items="Html.GetEnumSelectList<BandCategory>()"></select>
+                                <span asp-validation-for="BandCategory" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CharityCauseId" class="control-label"></label>
+                                <select asp-for="CharityCauseId" class="form-control" asp-items="ViewBag.CharityCauses"></select>
+                                <span asp-validation-for="CharityCauseId" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EventIds" class="control-label"></label>
+                                <select asp-for="EventIds" class="form-control" asp-items="ViewBag.Events" multiple></select>
+                                <span asp-validation-for="EventIds" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                        </div>@*right*@
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"> </label>
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger">  </span>@*define placeholders for validation*@
+                            </div>
+                        </div>@*bottom*@
+                    </div>
+
+                    <div class="col-md-6 offset-3 text-center">
+                        <img width="100%" id="ImageUrlPreview" />
+                    </div>@*image preview*@
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right"/>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Inapoi la trupe</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById("ImageUrlPreview")
+            output.src = $("#Logo").val()
+        })
+
+        $("#Logo").on("change", function () {
+            var output = document.getElementById("ImageUrlPreview")
+            output.src = $(this).val()@*this->logo*@
+        }) @*when the img url is changed or updated call function*@
+    </script>
+}

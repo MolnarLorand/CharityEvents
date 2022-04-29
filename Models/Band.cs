@@ -1,4 +1,5 @@
 ﻿using CharityEvents.Data;
+using CharityEvents.Data.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CharityEvents.Models
 {
-    public class Band
+    public class Band:IEntityBase
     {
         public int Id { get; set; }
 
@@ -27,6 +28,7 @@ namespace CharityEvents.Models
 
         //Rel
         public List<Event_Band> Events_Bands { get; set; }
+
 
         //rel with causes
         public int CharityCauseId { get; set; }

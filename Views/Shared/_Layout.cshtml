@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - CharityEvents</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
@@ -19,12 +20,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Bands" asp-action="Index"><i class="bi bi-music-player"></i> Trupe</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-gear-wide-connected"></i> Gestionare
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @*call by id to show the dropdown*@
+                                <a class="dropdown-item" asp-controller="Events" asp-action="Index"><i class="bi bi-easel2"></i> Evenimente</a>
+                                <a class="dropdown-item" asp-controller="CharityCauses" asp-action="Index"><i class="bi bi-balloon-heart"></i> Cauze Caritabile</a>
+                            </div>
                         </li>
                     </ul>
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Bands" asp-action="Filter" style="padding-right: 30px;">
+                        @*form to send request to bandcontroller*@
+                        <input name="searchString" type="text" class="form-control" placeholder="Cauta o trupa" />
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -37,7 +50,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - CharityEvents - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - CharityEvents - @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

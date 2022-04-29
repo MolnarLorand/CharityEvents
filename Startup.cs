@@ -1,4 +1,5 @@
 using CharityEvents.Data;
+using CharityEvents.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,11 @@ namespace CharityEvents
         {
             //DbContext Config
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));//appdbcontext translator + db
+
+            //Services Config
+            services.AddScoped<IEventsService, EventsService>();
+            services.AddScoped<ICharityCauseService, CharityCausesService>();
+            services.AddScoped<IBandsService, BandsService>();
 
             services.AddControllersWithViews();
         }

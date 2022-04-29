@@ -1,0 +1,75 @@
+﻿@*Define model, what data file i want to display with this file(list of events*@
+
+@model Band
+@*Definde viewData*@
+@{
+    ViewData["Title"] = "Detalii Trupe";
+}
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <div class="card mb-12"> @*style="max-width: 540px;"*@
+                <div class=" row g-0">
+                    @*row g -> padding*@
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-success">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.Name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.Logo" width="100%" alt="@Model.Name" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">@Model.Description</p>
+                            <p class="card-text"><b>Categorie: </b>@Model.BandCategory</p>
+                            <p class="card-text"><b>Membri formatie: </b>@Model.BandMembers</p>
+                            <p class="card-text"><b>Data Concert: </b>@Model.ConcertDate.ToString("dd MMM yyyy")</p>
+                            <p class="card-text">
+                                <b>Cauze ajutate:</b>
+                                <a asp-controller="CharityCauses" asp-action="Details" asp-route-id="@Model.CharityCauseId">
+                                    @Model.CharityCause.Name
+                                </a>
+                            </p>
+                            <!--<p class="card-text">
+                        <!--<b>Status: </b>-->
+                            <!--@*String to date for start end hour to display if the event is currently on going or si going to start.*@
+
+                    </p>-->
+                            <p class="card-text">
+                                <b>Evenimente:</b>
+                                <hr />
+                                <div class="row">
+                                    @*iterate through all the events*@
+                                    @foreach (var events in Model.Events_Bands)
+                                    {
+                                        <div class="column text-center">
+                                            <img class="border-info rounded-circle" src="@events.Event.Logo" alt="@events.Event.EventName" style="max-width: 150px;" />
+                                            <br />
+                                            <a asp-controller="Events" asp-action="Details" asp-route-id="@events.EventId">@events.Event.EventName</a>
+                                        </div>
+                                    }
+                                </div>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                    Înapoi la evenimente
+                                </a>
+                                <a class="btn btn-outline-success"><i class="bi bi-cart-check"></i>Sustine(@Model.DonationPrice.ToString("c"))</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+</div>
