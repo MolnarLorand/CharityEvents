@@ -1,0 +1,65 @@
+﻿@using CharityEvents.Data.ViewModels;
+@model RegisterVM;
+
+@{ 
+    ViewData["Title"] = "Înregistrează-te";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Înregistrează-te</h4>
+        </p>
+        @if(TempData["Error"] != null)
+            {
+                <div class="col-md-12 alet alert-danger">
+                    <span><b>!</b> @TempData["Error"] <b>!</b></span>
+                </div>
+            }
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Register">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @*Full Name*@
+                    <div class="form-group">
+                        <label asp-for="FullName" class="control-label"></label>
+                        <input asp-for="FullName" class="form-control" />
+                        @*placeholder for validation error*@
+                        <span asp-validation-for="FullName" class="text-danger"> </span>
+                    </div>
+
+                    @*Email adress*@
+                    <div class="form-group">
+                        <label asp-for="EmailAdress" class="control-label"></label>
+                        <input asp-for="EmailAdress" class="form-control" />
+                        @*placeholder for validation error*@
+                        <span asp-validation-for="EmailAdress" class="text-danger"> </span>
+                    </div>
+
+                    @*Password*@
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        @*placeholder for validation error*@
+                        <span asp-validation-for="Password" class="text-danger"> </span>
+                    </div>
+
+                    @*Confirmed Password*@
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        @*placeholder for validation error*@
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"> </span>
+                    </div>
+
+                    @*Buttons*@
+                    <div class="form-group">
+                        <input class="btn btn-outline-success float-right" type="submit" value="Sign up" />@*submit button*@
+                        <a class="btn btn-outline-secondary" asp-controller="Bands" asp-action="Index">Anulare</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

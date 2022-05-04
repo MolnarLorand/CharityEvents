@@ -11,7 +11,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CharityEvents</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
 
                     @*Icon for cart*@
                     <ul class="navbar-nav">
-                        @await Component.InvokeAsync("ShoppingCartSummary") 
+                        @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
 
                     @*Log in*@
@@ -49,19 +49,34 @@
                         <i class="bi bi-box-arrow-in-right"></i>Conectează-te
                     </a>
 
+                    <span style="padding: 5px;"></span>
+
+                    @*Register*@
+                    <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Account" asp-action="Register">
+                        <i class="bi bi-person-plus"></i>Înregistrează-te
+                    </a>
+                    <span style="padding: 5px;"></span>
+
 
                     @*user profile *@
-                <div class="dropdown">
-                    <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-lines-fill"></i>Salut user
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="profile-btn">
-                        <li>
-                            <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
-                            <i class="bi bi-list-check"></i>Istoric donații</a>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-lines-fill"></i>Salut user
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="profile-btn">
+                            <li>
+                                <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+                                    <i class="bi bi-list-check"></i>Istoric donații
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span style="padding: 5px;"></span>
+                    <form asp-controller="Account" asp-action="Logout">
+                        <button class="btn btn-outline-danger my-2 my-sm-0">
+                            <i class="bi bi-box-arrow-right"></i>Deconectează-te
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
