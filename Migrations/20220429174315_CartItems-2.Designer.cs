@@ -4,14 +4,16 @@ using CharityEvents.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CharityEvents.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220429174315_CartItems-2")]
+    partial class CartItems2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,7 +195,7 @@ namespace CharityEvents.Migrations
 
                     b.HasIndex("BandId");
 
-                    b.ToTable("ShoppingCartItems");
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("CharityEvents.Models.Band", b =>

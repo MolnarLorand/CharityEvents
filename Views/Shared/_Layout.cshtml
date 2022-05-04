@@ -35,9 +35,27 @@
                     </ul>
                     <form class="form-inline my-2 my-lg-0" asp-controller="Bands" asp-action="Filter" style="padding-right: 30px;">
                         @*form to send request to bandcontroller*@
-                        <input name="searchString" type="text" class="form-control" placeholder="Cauta o trupa" />
+                        <input name="searchString" type="text" class="form-control" placeholder="Caută o trupă" />
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                     </form>
+
+                    @*Icon for cart*@
+                    <ul class="navbar-nav">
+                        @await Component.InvokeAsync("ShoppingCartSummary") 
+                    </ul>
+
+                    @*user profile *@
+                <div class="dropdown">
+                    <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-lines-fill"></i>Salut user
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="profile-btn">
+                        <li>
+                            <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+                            <i class="bi bi-list-check"></i>Istoric donații</a>
+                        </li>
+                    </ul>
+                </div>
                 </div>
             </div>
         </nav>

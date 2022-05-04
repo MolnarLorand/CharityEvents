@@ -4,14 +4,16 @@ using CharityEvents.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CharityEvents.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220429180501_WithoutCartItem")]
+    partial class WithoutCartItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,29 +175,6 @@ namespace CharityEvents.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("CharityEvents.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BandId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BandId");
-
-                    b.ToTable("ShoppingCartItems");
-                });
-
             modelBuilder.Entity("CharityEvents.Models.Band", b =>
                 {
                     b.HasOne("CharityEvents.Models.CharityCause", "CharityCause")
@@ -243,15 +222,6 @@ namespace CharityEvents.Migrations
                     b.Navigation("Band");
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("CharityEvents.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("CharityEvents.Models.Band", "Band")
-                        .WithMany()
-                        .HasForeignKey("BandId");
-
-                    b.Navigation("Band");
                 });
 
             modelBuilder.Entity("CharityEvents.Models.Band", b =>

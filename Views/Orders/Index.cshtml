@@ -1,0 +1,48 @@
+﻿@model List<Order>
+
+@{
+    ViewData["Title"] = "Toate donațiile";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <p>
+            <h4>Lista donațiilor dumneavoastră</h4>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td class="allign-middle">@order.Id</td>@*orderid*@
+                        <td class="allign-middle"> @*items*@
+                            <ul style="list-style-type:none">
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <li>
+                                        <div class="alert alert-info" role="alert">
+                                            <span class="badge bg-success">@item.Amount</span>[@item.Price.ToString("c")] - @item.Band.Name
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+                        <td class="allign-middle">
+                            @order.OrderItems.Select(m => m.Band.DonationPrice * m.Amount).Sum().ToString("c")
+                            </td>@*total*@
+                        <td class="allign-middle">-</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

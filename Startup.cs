@@ -1,7 +1,9 @@
 using CharityEvents.Data;
+using CharityEvents.Data.Cart;
 using CharityEvents.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,10 +32,15 @@ namespace CharityEvents
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));//appdbcontext translator + db
 
             //Services Config
-            services.AddScoped<IEventsService, EventsService>();
+            services.AddScoped<IEventsService, EventsService>(); //interface, implementation
             services.AddScoped<ICharityCauseService, CharityCausesService>();
             services.AddScoped<IBandsService, BandsService>();
+            services.AddScoped<IOrdersService, OrdersService>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); //data/shoppingcart.cs
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc)); //data/shoppingcart.cs
+            
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
@@ -54,6 +61,7 @@ namespace CharityEvents
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 

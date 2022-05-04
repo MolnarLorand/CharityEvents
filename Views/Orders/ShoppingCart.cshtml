@@ -1,0 +1,117 @@
+﻿@using CharityEvents.Data.ViewModels
+@model ShoppingCartVM
+
+@{
+    ViewData["Title"] = "Rezumat Cos";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <div class="text-center">
+            <h2>Rezumat</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Selecție</th>
+                        <th>Cauză ajutată prin trupa</th>
+                        <th>Valoare donată</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                        @*add/remove*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                    {
+                        <tr>
+                            <td class="allign-middle">@item.Amount</td>
+                            <td class="allign-middle">@item.Band.Name</td>
+                            <td class="allign-middle">@item.Band.DonationPrice.ToString("c")</td>
+                            <td class="allign-middle">@((item.Amount*item.Band.DonationPrice).ToString("c"))</td>
+                            <td class="allign-middle">
+                                <a class="text-danger" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Band.Id">
+                                    <i class="bi bi-cart-dash"></i>
+                                    |
+                                </a>
+                                <a class="text-success" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Band.Id">
+                                    <i class="bi bi-cart-plus"></i>
+                                </a>
+                            </td>
+                            @*icons*@
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td><b>Total donatie:</b></td>
+                        <td>
+                            @Model.ShoppingCartTotal.ToString("c")
+                        </td>
+                        <td></td>
+                        @*for icons*@
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="text-right">
+                <div class="btn btn-group">
+                    @* <a class="btn btn-outline-primary" asp-action="CompleteOrder">
+                            Finalizează donația
+                        </a> without paypal*@
+                    <div id="paypal-btn"></div>
+                    <span style="padding:5px"></span>
+                    <a class="btn btn-outline-success" asp-controller="Bands" asp-action="Index">
+                        Adaugă alte elemente în cos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    @*reference the paypal checkout library*@
+    <script>
+        let _total = @Html.Raw(Model.ShoppingCartTotal);
+
+        paypal.Button.render({
+            //configure enviroment
+            env: 'sandbox',
+            client: {
+                sandbox: 'ARkH6_lANaWKiGslWJEn3Sku8rBQ7i6hQviY-Tuqh0HXHk3wcG9YKLp2S1IIp39FoKwgQ2ZMDj8EE2cB'
+            },
+
+            //custom button
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill'
+            },
+            commit: true,
+
+            //set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    //define transaction prop
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
+                        }
+                    }]
+                });
+            },
+
+            //execute payment
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function () {
+                    var url = '@Url.Action("CompleteOrder", "Orders",new { })'; @*new empty obj*@
+                    window.location.href = url;
+                });
+            }
+
+        }, '#paypal-btn');
+    </script>
+}

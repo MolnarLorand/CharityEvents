@@ -26,6 +26,19 @@ namespace CharityEvents.Controllers
             return View(allBands);
         }
 
+        public async Task<IActionResult> Filter(String searchString)//name from the input in layout.cshtml
+        {
+            var allBands = await _service.GetAllAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var filterResult = allBands.Where(m => m.Name.Contains(searchString) || m.Description.Contains(searchString) || m.BandMembers.Contains(searchString)).ToList();
+                return View("Index", filterResult);
+            }
+
+            return View("Index", allBands);
+        }
+
         //get /details/id
         public async Task<IActionResult> Details(int id)
         {

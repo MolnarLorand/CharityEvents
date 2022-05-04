@@ -21,7 +21,8 @@ namespace CharityEvents.Models
         [Required(ErrorMessage = "Câmp obligatoriu")]
         public String Logo { get; set; }
 
-        [Display(Name = "Perioada desfasurare")]
+        [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
+        [Display(Name = "Zi desfășurare")]
         [Required(ErrorMessage = "Câmp obligatoriu")]
         public DateTime EventPeriod { get; set; }
 

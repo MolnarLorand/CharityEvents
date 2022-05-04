@@ -90,7 +90,7 @@ namespace CharityEvents.Data.Services
             var existingEventsDb = _context.Events_Bands.Where(m => m.BandId == info.Id).ToList();
             _context.Events_Bands.RemoveRange(existingEventsDb);
             await _context.SaveChangesAsync();
-            //idk why is not working
+            
 
 
             //Add band-event

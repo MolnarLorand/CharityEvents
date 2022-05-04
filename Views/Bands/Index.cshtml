@@ -54,7 +54,7 @@
                         <div class="card-footer">
                             <p class="card-text">
                                 <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye-fill"></i>Arata Detalii</a>
-                                <a class="btn btn-outline-success"><i class="bi bi-cart-check"></i>Sustine(@item.DonationPrice.ToString("c"))</a>
+                                <a class="btn btn-outline-success" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id"><i class="bi bi-cart-check"></i>Sustine(@item.DonationPrice.ToString("c"))</a>
                             </p>
                         </div>
                     </div>
