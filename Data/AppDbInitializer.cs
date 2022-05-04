@@ -1,5 +1,7 @@
-﻿using CharityEvents.Models;
+﻿using CharityEvents.Data.Static;
+using CharityEvents.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -146,5 +148,60 @@ namespace CharityEvents.Data
 
             }
         }
+
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            //referince - scope application services
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) //ref
+            {
+                //Create the Roles
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();//def class identityRole but i can use a custom one that : from this one
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))//check if the admin role exist in db
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))//check if the user role exist it db
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+
+                //create users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();//def class identityUser but i created applicationUser custrom class that : from that clas
+                string adminUserEmail = "admin@licenta.com";
+
+                //add admin
+                var adminUser = await userManager.FindByEmailAsync(adminUserEmail);//check if i have admin user in db
+                if (adminUser == null)
+                {
+                    var newAdminUser = new ApplicationUser()
+                    {
+                        FullName = "Admin User",
+                        UserName = "admin-user",
+                        Email = adminUserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAdminUser, "Licenta1121_");//add user to db
+                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);//add user to role
+                }
+
+
+                string normalUserEmail = "user@licenta.com";
+
+                //add
+                var normalUser = await userManager.FindByEmailAsync(normalUserEmail);//check if i have admin user in db
+                if (normalUser == null)
+                {
+                    var newNormalUser = new ApplicationUser()
+                    {
+                        FullName = "Application User",
+                        UserName = "normal-user",
+                        Email = normalUserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newNormalUser, "Licenta1121_");//add user to db
+                    await userManager.AddToRoleAsync(newNormalUser, UserRoles.User);//add user to role
+                }
+            }
+        }
     }
 }
+

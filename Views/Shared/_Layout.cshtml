@@ -44,6 +44,12 @@
                         @await Component.InvokeAsync("ShoppingCartSummary") 
                     </ul>
 
+                    @*Log in*@
+                    <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login">
+                        <i class="bi bi-box-arrow-in-right"></i>Conectează-te
+                    </a>
+
+
                     @*user profile *@
                 <div class="dropdown">
                     <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">

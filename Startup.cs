@@ -1,10 +1,13 @@
 using CharityEvents.Data;
 using CharityEvents.Data.Cart;
 using CharityEvents.Data.Services;
+using CharityEvents.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,8 +42,17 @@ namespace CharityEvents
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); //data/shoppingcart.cs
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc)); //data/shoppingcart.cs
-            
+
+            //Auth & authoriz
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddMemoryCache();
+
             services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });//i can let it def or i def options 
+
             services.AddControllersWithViews();
         }
 
@@ -63,6 +75,11 @@ namespace CharityEvents
             app.UseRouting();
             app.UseSession();
 
+            //Auth & authoriz
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -73,7 +90,9 @@ namespace CharityEvents
             });
 
             //seed database
-            AppDbInitializer.Seed(app);//app-Iapplicationbuilder
+            AppDbInitializer.Seed(app);//app-Iapplicationbuilder sad
+
+            AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }
