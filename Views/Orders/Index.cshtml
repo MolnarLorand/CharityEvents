@@ -15,31 +15,42 @@
                     <th>Order Id</th>
                     <th>Items</th>
                     <th>Total</th>
-                    <th>User</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <th>User</th>
+                    }
+
                 </tr>
             </thead>
             <tbody>
                 @foreach (var order in Model)
                 {
-                    <tr>
-                        <td class="allign-middle">@order.Id</td>@*orderid*@
-                        <td class="allign-middle"> @*items*@
-                            <ul style="list-style-type:none">
-                                @foreach (var item in order.OrderItems)
-                                {
-                                    <li>
-                                        <div class="alert alert-info" role="alert">
-                                            <span class="badge bg-success">@item.Amount</span>[@item.Price.ToString("c")] - @item.Band.Name
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        </td>
-                        <td class="allign-middle">
-                            @order.OrderItems.Select(m => m.Band.DonationPrice * m.Amount).Sum().ToString("c")
-                            </td>@*total*@
-                        <td class="allign-middle">-</td>
-                    </tr>
+                <tr>
+                    <td class="allign-middle">@order.Id</td>
+                    @*orderid*@
+                    <td class="allign-middle">
+                        @*items*@
+                        <ul style="list-style-type:none">
+                            @foreach (var item in order.OrderItems)
+                            {
+                                <li>
+                                    <div class="alert alert-info" role="alert">
+                                        <span class="badge bg-success">@item.Amount</span>[@item.Price.ToString("c")] - @item.Band.Name
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                    <td class="allign-middle">
+                        @order.OrderItems.Select(m => m.Band.DonationPrice * m.Amount).Sum().ToString("c")
+                    </td>
+                    @*total*@
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <td class="allign-middle">@order.User.FullName</td>
+
+                    }
+                </tr>
                 }
             </tbody>
         </table>

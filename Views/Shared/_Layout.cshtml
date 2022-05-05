@@ -22,16 +22,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Bands" asp-action="Index"><i class="bi bi-music-player"></i> Trupe</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-gear-wide-connected"></i> Gestionare
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @*call by id to show the dropdown*@
-                                <a class="dropdown-item" asp-controller="Events" asp-action="Index"><i class="bi bi-easel2"></i> Evenimente</a>
-                                <a class="dropdown-item" asp-controller="CharityCauses" asp-action="Index"><i class="bi bi-balloon-heart"></i> Cauze Caritabile</a>
-                            </div>
-                        </li>
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-gear-wide-connected"></i> Gestionare
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @*call by id to show the dropdown*@
+                                    <a class="dropdown-item" asp-controller="Events" asp-action="Index"><i class="bi bi-easel2"></i> Evenimente</a>
+                                    <a class="dropdown-item" asp-controller="CharityCauses" asp-action="Index"><i class="bi bi-balloon-heart"></i> Cauze Caritabile</a>
+                                </div>
+                            </li>
+                        }
+
                     </ul>
                     <form class="form-inline my-2 my-lg-0" asp-controller="Bands" asp-action="Filter" style="padding-right: 30px;">
                         @*form to send request to bandcontroller*@
@@ -44,39 +49,10 @@
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
 
-                    @*Log in*@
-                    <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login">
-                        <i class="bi bi-box-arrow-in-right"></i>Conectează-te
-                    </a>
+                   @* @await Html.RenderPartialAsync("_Identity")*@
+                   @* or partial*@
+                    <partial name="_Identity.cshtml"/>
 
-                    <span style="padding: 5px;"></span>
-
-                    @*Register*@
-                    <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Account" asp-action="Register">
-                        <i class="bi bi-person-plus"></i>Înregistrează-te
-                    </a>
-                    <span style="padding: 5px;"></span>
-
-
-                    @*user profile *@
-                    <div class="dropdown">
-                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-lines-fill"></i>Salut user
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="profile-btn">
-                            <li>
-                                <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
-                                    <i class="bi bi-list-check"></i>Istoric donații
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <span style="padding: 5px;"></span>
-                    <form asp-controller="Account" asp-action="Logout">
-                        <button class="btn btn-outline-danger my-2 my-sm-0">
-                            <i class="bi bi-box-arrow-right"></i>Deconectează-te
-                        </button>
-                    </form>
                 </div>
             </div>
         </nav>

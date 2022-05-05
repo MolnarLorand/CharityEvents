@@ -16,9 +16,14 @@ namespace CharityEvents.Data.Services
             _context = context;
         }
 
-        public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
+        public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
         {
-            var orders = await _context.Orders.Include(m => m.OrderItems).ThenInclude(m => m.Band).Where(m => m.UserId == userId).ToListAsync();
+            var orders = await _context.Orders.Include(m => m.OrderItems).ThenInclude(m => m.Band).Include(m=> m.User).ToListAsync(); //all orders in the app
+
+            if(userRole != "Admin")
+            {
+                orders = orders.Where(n => n.UserId == userId).ToList();
+            }
             return orders;
         }
 

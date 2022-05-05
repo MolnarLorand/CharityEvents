@@ -1,7 +1,9 @@
 ﻿@model string;
-
 @*partial view for the create button- pentru a nu repeta cod, redundanta*@
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div style="position:fixed; right: 25px; bottom:65px;" class="text-white">
+        <a asp-controller="@Model" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle-dotted">Adaugă</i></a>
+    </div>
+}
 
-<div style="position:fixed; right: 25px; bottom:65px;" class="text-white">
-    <a asp-controller="@Model" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle-dotted">Adaugă</i></a>
-</div>
