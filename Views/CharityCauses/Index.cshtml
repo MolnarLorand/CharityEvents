@@ -26,10 +26,10 @@
                     <td class="align-middle">
                         <img class="rounded-circle" src="@item.Image" alt="@item.Name" style="max-width: 150px" />
                     </td>
-                    <td class="align-middle" style="width:20%">
+                    <td class="align-middle" style="width:40%">
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td class="align-middle" style="width:30%">
+                    <td class="align-middle" style="width:40%">
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))

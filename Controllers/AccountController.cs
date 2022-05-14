@@ -97,6 +97,7 @@ namespace CharityEvents.Controllers
 
             if (newUserResponse.Succeeded)
             {
+
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
             }
 

@@ -14,7 +14,7 @@ namespace CharityEvents.Models
         public int  Id { get; set; }
 
         [Required(ErrorMessage ="Câmp obligatoriu")]
-        [Display(Name="Nume trupa")]
+        [Display(Name="Nume trupa/Artist")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Câmpul trebuie sa contina intre 3 si 50 de caractere")]
         public String Name { get; set; }
 
