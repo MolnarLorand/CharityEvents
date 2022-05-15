@@ -20,12 +20,12 @@ namespace CharityEvents.Models
 
         [Required(ErrorMessage = "Câmp obligatoriu")]
         [Display(Name = "Nume membrii trupa")]
-        [StringLength(250, MinimumLength = 3, ErrorMessage = "Câmpul trebuie sa contina intre 3 si 250 de caractere")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Câmpul trebuie sa contina intre 3 si 100 de caractere")]
         public String BandMembers { get; set; }
 
         [Required(ErrorMessage = "Câmp obligatoriu")]
         [Display(Name = "Descriere")]
-        [StringLength(250, MinimumLength = 3, ErrorMessage = "Câmpul trebuie sa contina intre 3 si 250 de caractere")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "Câmpul trebuie sa contina intre 3 si 150 de caractere")]
         public String Description { get; set; }
 
         [Required(ErrorMessage = "Câmp obligatoriu")]
