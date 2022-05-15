@@ -37,7 +37,7 @@
                             <p class="card-text"><b>Data Concert: </b>@item.ConcertDate.ToString("dd MMM yyyy")</p>
                             <p class="card-text">
                                 <b>Info Concert: </b>
-                                <!--<-->@*String to date for start end hour to display if the event is currently on going or si going to start.*@
+                               
                                 @if (item.ConcertDate.ToString("dd MMM yyyy") == DateTime.Now.ToString("dd MMM yyyy"))
                                 {
                                     <span class="badge bg-success text-white">În desfășurare</span>
