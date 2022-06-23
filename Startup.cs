@@ -45,6 +45,14 @@ namespace CharityEvents
 
             //Auth & authoriz
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            
+            //email confirmation
+/*            services.Configure<IdentityOptions>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+                opts.SignIn.RequireConfirmedEmail = true;
+            });*/
+
             services.AddMemoryCache();
 
             services.AddSession();

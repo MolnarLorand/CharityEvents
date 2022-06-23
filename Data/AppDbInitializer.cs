@@ -151,7 +151,7 @@ namespace CharityEvents.Data
 
         public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
         {
-            //referince - scope application services
+            //reference - scope application services
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) //ref
             {
                 //Create the Roles

@@ -56,20 +56,22 @@
                         }
 
                     </ul>
-                    <form class="form-inline my-2 my-lg-0" asp-controller="Bands" asp-action="Filter" style="padding-right: 30px;">
-                        @*form to send request to bandcontroller*@
-                        <input name="searchString" type="text" class="form-control" placeholder="Caută o trupă" />
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-                    </form>
-
-                    @*Icon for cart*@
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+                        <form class="form-inline my-2 my-lg-0" asp-controller="Bands" asp-action="Filter" style="padding-right: 30px;">
+                            @*form to send request to bandcontroller*@
+                            <input name="searchString" type="text" class="form-control" placeholder="Caută o trupă" />
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    }
+                        @*Icon for cart*@
                     <ul class="navbar-nav">
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
 
-                   @* @await Html.RenderPartialAsync("_Identity")*@
-                   @* or partial*@
-                    <partial name="_Identity.cshtml"/>
+                    @* @await Html.RenderPartialAsync("_Identity")*@
+                    @* or partial*@
+                    <partial name="_Identity.cshtml" />
 
                 </div>
             </div>

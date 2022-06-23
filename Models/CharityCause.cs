@@ -28,7 +28,7 @@ namespace CharityEvents.Models
 
         public String Description { get; set; }
 
-        //Rel
+        //Relationship
         public List<Band> Bands { get; set; }
     }
 }

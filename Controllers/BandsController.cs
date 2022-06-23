@@ -1,6 +1,8 @@
 ﻿using CharityEvents.Data;
 using CharityEvents.Data.Services;
+using CharityEvents.Data.Static;
 using CharityEvents.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace CharityEvents.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class BandsController : Controller
     {
         private readonly IBandsService _service;
@@ -20,12 +23,14 @@ namespace CharityEvents.Controllers
             _service = service;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allBands = await _service.GetAllAsync();
             return View(allBands);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Filter(String searchString)//name from the input in layout.cshtml
         {
             var allBands = await _service.GetAllAsync();
@@ -33,6 +38,7 @@ namespace CharityEvents.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 var filterResult = allBands.Where(m => m.Name.Contains(searchString) || m.Description.Contains(searchString) || m.BandMembers.Contains(searchString)).ToList();
+              //  var filteredResultNew = allBands.Where(n => string.Equals(n.Name, searchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.Description, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
                 return View("Index", filterResult);
             }
 
@@ -40,6 +46,7 @@ namespace CharityEvents.Controllers
         }
 
         //get /details/id
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var bandDetail = await _service.GetBandByIdAsync(id);

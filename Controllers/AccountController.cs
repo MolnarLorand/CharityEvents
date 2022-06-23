@@ -98,7 +98,7 @@ namespace CharityEvents.Controllers
             if (newUserResponse.Succeeded)
             {
 
-                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+                await _userManager.AddToRoleAsync(newUser, UserRoles.User); //always add the new acc as a simple user.
             }
 
             return View("RegisterCompleted");

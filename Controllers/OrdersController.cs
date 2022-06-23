@@ -1,6 +1,7 @@
 ﻿using CharityEvents.Data.Cart;
 using CharityEvents.Data.Services;
 using CharityEvents.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace CharityEvents.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IBandsService _bandsService;

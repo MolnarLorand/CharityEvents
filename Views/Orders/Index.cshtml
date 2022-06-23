@@ -12,12 +12,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Order Id</th>
-                    <th>Items</th>
+                    <th>Id Comanda</th>
+                    <th>Element </th>
                     <th>Total</th>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <th>User</th>
+                        <th>Utilizator</th>
                     }
 
                 </tr>

@@ -1,6 +1,8 @@
 ﻿using CharityEvents.Data;
 using CharityEvents.Data.Services;
+using CharityEvents.Data.Static;
 using CharityEvents.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CharityEvents.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class CharityCausesController : Controller
     {
         private readonly ICharityCauseService _service;
@@ -18,6 +21,7 @@ namespace CharityEvents.Controllers
         {
             _service = service;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allCharityCauses = await _service.GetAllAsync(); //use the charity service instead of context
@@ -25,6 +29,7 @@ namespace CharityEvents.Controllers
         }
 
         //get: /details/id
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var CharityCauseDetails = await _service.GetByIdAsync(id);

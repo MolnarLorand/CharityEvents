@@ -63,7 +63,10 @@
                                 <a class="btn btn-outline-primary float-right" asp-action="Index">
                                     Înapoi la evenimente
                                 </a>
-                                <a class="btn btn-outline-success" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-check"></i>Sustine(@Model.DonationPrice.ToString("c"))</a>
+                                @if (User.Identity.IsAuthenticated == true)
+                                {
+                                    <a class="btn btn-outline-success" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-check"></i>Susține(@Model.DonationPrice.ToString("c"))</a>
+                                }
                             </p>
                         </div>
                     </div>

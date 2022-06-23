@@ -8,7 +8,7 @@ namespace CharityEvents.Data.Base
 {
     public interface IEntityBaseRepository<T> where T: class, IEntityBase, new()
     {
-        //i mage a generic solution using T, instead of repeating the code for every view where i need the crud operations
+        //e a generic solution using T, instead of repeating the code for every view where i need the crud operations
         //pentru a elimina redundanta codului
         Task<IEnumerable<T>> GetAllAsync();
 

@@ -61,7 +61,7 @@
                     <div id="paypal-btn"></div>
                     <span style="padding:5px"></span>
                     <a class="btn btn-outline-success" asp-controller="Bands" asp-action="Index">
-                        Adaugă alte elemente în cos
+                        Susține și alte cauze caritabile
                     </a>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         let _total = @Html.Raw(Model.ShoppingCartTotal);
 
         paypal.Button.render({
-            //configure enviroment
+            //configure env
             env: 'sandbox',
             client: {
                 sandbox: 'ARkH6_lANaWKiGslWJEn3Sku8rBQ7i6hQviY-Tuqh0HXHk3wcG9YKLp2S1IIp39FoKwgQ2ZMDj8EE2cB'
